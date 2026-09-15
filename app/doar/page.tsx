@@ -33,7 +33,11 @@ export default function DonatePage() {
     if (!externalId) return
     const timer = window.setInterval(async () => {
       const response = await fetch(`/api/status/${externalId}`, { cache: 'no-store' })
-      if (response.ok && (await response.json()).status === 'PAID') router.push(`/obrigado?valor=${chosenAmount}&pedido=${externalId}`)
+      const paidAmount = chosenAmount + (impact ? 4.99 : 0)
+      if (response.ok && (await response.json()).status === 'PAID') {
+        const params = new URLSearchParams({ valor: paidAmount.toFixed(2), pedido: externalId })
+        router.push(`/obrigado?${params.toString()}`)
+      }
     }, 3000)
     return () => window.clearInterval(timer)
   }, [externalId, chosenAmount, router])
