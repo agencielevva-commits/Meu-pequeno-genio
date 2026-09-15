@@ -93,7 +93,7 @@ export default function DonatePage() {
             <div className="bank-lines"><span>Recebedor:<b>Instituto Esperança</b></span><span>Banco:<b>ASS</b></span></div>
             <p className="qr-caption">Se preferir, utilize o QR Code abaixo.</p>
             {pixData?.qrCodeBase64 ? <img className="real-qr" src={`data:image/png;base64,${pixData.qrCodeBase64}`} alt="QR Code PIX para pagamento" /> : <div className="fake-qr" aria-label="QR Code não disponível" />}
-            <button className="paid-button" onClick={() => setGenerated(false)}>JÁ PAGUEI · VERIFICAR PAGAMENTO</button>
+            <Link className="paid-button" href="/obrigado">JÁ PAGUEI · VERIFICAR PAGAMENTO</Link>
           </div>
         </section>
       )}
