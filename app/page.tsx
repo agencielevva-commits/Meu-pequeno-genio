@@ -23,6 +23,12 @@ const testimonials = [
 
 type PixData = { copyPaste?: string; qrCodeBase64?: string }
 
+type MetaWindow = Window & { fbq?: (...args: unknown[]) => void }
+
+function trackMetaEvent(event: string, parameters?: Record<string, unknown>) {
+  if (typeof window !== 'undefined') (window as MetaWindow).fbq?.('track', event, parameters)
+}
+
 function DonationModal({ onClose }: { onClose: () => void }) {
   const [amount, setAmount] = useState(50)
   const [loading, setLoading] = useState(false)
@@ -37,6 +43,7 @@ function DonationModal({ onClose }: { onClose: () => void }) {
   }, [onClose])
 
   async function generatePix() {
+    trackMetaEvent('InitiateCheckout', { value: amount, currency: 'BRL' })
     setLoading(true)
     setError('')
     try {
@@ -79,7 +86,10 @@ function CTA({ label = 'FAZER PARTE DESSE PROPÓSITO', onDonate }: { label?: str
 
 export default function Page() {
   const [donationOpen, setDonationOpen] = useState(false)
-  const openDonation = () => setDonationOpen(true)
+  const openDonation = () => {
+    trackMetaEvent('Donate', { currency: 'BRL' })
+    setDonationOpen(true)
+  }
 
   return (
     <main>
