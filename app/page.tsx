@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-
 const images = {
   child: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20tela%202026-09-14%20214854-ZkCilOKv0aDoNBjlbZO9y8lAKJUq40.png',
   prayer: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aYMmSciIepgEEQPHJbqWg6VxStFsmF.png',
@@ -26,18 +24,11 @@ function CTA({ label = 'FAZER PARTE DESSE PROPÓSITO' }: { label?: string }) {
 }
 
 export default function Page() {
-  const [copied, setCopied] = useState(false)
-  const copyPix = async () => {
-    await navigator.clipboard?.writeText('pix@institutoesperancadobem.org')
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 2200)
-  }
-
   return (
     <main>
       <header className="topbar site-header">
         <a className="brand-mark" aria-label="Esperança do Bem" href="#inicio"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2022_56_29-RvUWngotSiiyqW9IjYE2RL60GGAyvj.png" alt="Logo Esperança do Bem" /></a>
-        <nav className="main-nav" aria-label="Navegação principal"><a href="#impacto">Nosso impacto</a><a href="#depoimentos">Depoimentos</a><a href="#pix">PIX</a><a className="nav-donate" href="/doar">Doar agora</a></nav>
+        <nav className="main-nav" aria-label="Navegação principal"><a href="#impacto">Nosso impacto</a><a href="#depoimentos">Depoimentos</a><a className="nav-donate" href="/doar">Doar agora</a></nav>
       </header>
 
       <section className="campaign-banner" id="inicio">
@@ -82,8 +73,6 @@ export default function Page() {
       <section className="gallery section paper"><div className="gallery-grid"><img src={images.prayer} alt="Crianças reunidas em oração" /><img src={images.historic} alt="Criança em situação de fome observada por um abutre" /><img src={images.community} alt="Crianças reunidas em comunidade" /></div><p className="quote">&quot;Quem recebe uma destas crianças em meu nome, a mim me recebe.&quot;<small>▧ Mateus 18:5</small></p></section>
 
       <section className="testimonials section" id="depoimentos"><span className="section-kicker">VOZES DA NOSSA COMUNIDADE</span><h2>Quem já fez parte, compartilha</h2><p className="testimonials-intro">Cada gesto cria uma corrente de cuidado que chega muito mais longe.</p><div className="testimonial-row">{testimonials.map(([name, city, text, avatar], index) => <article className="testimonial" key={`${name}-${index}`}><img className="avatar-photo" src={avatar} alt={`Avatar de ${name}`} /><div><h3>{name}</h3><small>{city} · Doador(a)</small></div><span className="verified">✓ verificado</span><p>&quot;{text}&quot;</p></article>)}</div></section>
-
-      <section className="pix section" id="pix"><h2>COMO AJUDAR VIA PIX</h2><p>Se preferir, você pode doar <b>copiando a chave PIX abaixo.</b></p><div className="pix-card"><label>CHAVE PIX (E-mail)</label><div className="pix-key">pix@institutoesperancadobem.org</div><button onClick={copyPix}>{copied ? 'Chave copiada' : 'Clique para copiar a chave PIX ▧'}</button><div className="bank-info"><span>Recebedor:<b>Instituto Esperança</b></span><span>Banco:<b>ASS</b></span></div><div className="steps"><b>Passos para doar:</b><br />1. Copie a chave PIX clicando no botão acima.<br />2. Abra o app do seu banco e escolha PIX &gt; Transferir.<br />3. Cole a chave, informe o valor e confirme a doação.<br />4. Pronto! Sua ajuda chega na hora para salvar vidas.</div></div></section>
 
       <section className="final section"><h2>Não vire as costas para o propósito de Deus</h2><p className="subtitle">Tive fome, e vocês me deram de comer.<br />Hoje, você pode ser a resposta dessa palavra.</p><img src={images.video} alt="Vídeo sobre o projeto Esperança do Bem" /><CTA label="QUERO AJUDAR AGORA" /><p><b>É rápido, seguro e qualquer valor ajuda.</b></p></section>
       <footer>Esperança do Bem · Uma mão estendida transforma uma vida.</footer>
