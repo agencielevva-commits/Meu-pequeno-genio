@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 const childImage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%282%29-nnNryWlguuWMxDnT9LjoiCZ9ym3t5M.jpeg'
@@ -24,17 +25,29 @@ export default function DonatePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const [externalId, setExternalId] = useState<string | null>(null)
+  const router = useRouter()
   const chosenAmount = custom ? Number(custom.replace(',', '.')) || 0 : selected
+
+  useEffect(() => {
+    if (!externalId) return
+    const timer = window.setInterval(async () => {
+      const response = await fetch(`/api/status/${externalId}`, { cache: 'no-store' })
+      if (response.ok && (await response.json()).status === 'PAID') router.push(`/obrigado?valor=${chosenAmount}&pedido=${externalId}`)
+    }, 3000)
+    return () => window.clearInterval(timer)
+  }, [externalId, chosenAmount, router])
 
   const generatePix = async () => {
     const amount = chosenAmount + (impact ? 4.99 : 0)
     if (amount < 10 || amount > 1000) { setError('Escolha um valor entre R$ 10,00 e R$ 1.000,00.'); return }
     setLoading(true); setError('')
     try {
-      const response = await fetch('/api/pix', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount }) })
+      const response = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ amount }) })
       const payload = await response.json()
       if (!response.ok) throw new Error(payload.error || 'Não foi possível gerar o PIX.')
-      setPixData(payload.data?.pix || null)
+      setPixData(payload.pix || null)
+      setExternalId(payload.externalId || null)
       setGenerated(true)
     } catch (requestError) { setError(requestError instanceof Error ? requestError.message : 'Não foi possível gerar o PIX.') } finally { setLoading(false) }
   }
