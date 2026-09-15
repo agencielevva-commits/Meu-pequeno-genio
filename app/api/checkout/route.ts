@@ -4,11 +4,7 @@ import { db, orders } from '@/lib/db'
 
 const ONIPAY_URL = 'https://onipaybot.com.br/api/v1/deposits/'
 
-function callbackUrl() {
-  const base = (process.env.NEXT_PUBLIC_APP_URL || '').replace(/\/$/, '')
-  if (!base || !base.startsWith('https://')) throw new Error('URL pública HTTPS não configurada.')
-  return `${base}/api/webhooks/onipay`
-}
+const ONIPAY_CALLBACK_URL = 'https://esperancadobem.vercel.app/api/webhooks/onipay'
 
 export async function POST(request: Request) {
   try {
@@ -22,7 +18,7 @@ export async function POST(request: Request) {
     if (!token) return NextResponse.json({ error: 'Gateway PIX indisponível.' }, { status: 503 })
     const externalId = randomUUID()
     await db.insert(orders).values({ id: randomUUID(), externalId, amount: amountInCents, status: 'PENDING', createdAt: new Date(), updatedAt: new Date() })
-    const response = await fetch(ONIPAY_URL, { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'Idempotency-Key': externalId }, body: JSON.stringify({ amount: amountInCents, callbackUrl: callbackUrl(), externalId }), cache: 'no-store' })
+    const response = await fetch(ONIPAY_URL, { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'Idempotency-Key': externalId }, body: JSON.stringify({ amount: amountInCents, callbackUrl: ONIPAY_CALLBACK_URL, externalId }), cache: 'no-store' })
     const data = await response.json().catch(() => null)
     if (!response.ok) return NextResponse.json({ error: data?.error?.message || 'A OniPay não conseguiu gerar o PIX.' }, { status: 502 })
     const pix = data?.data?.pix || data?.pix || data?.data
