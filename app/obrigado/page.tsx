@@ -1,10 +1,37 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
+
+interface MetaPixelWindow extends Window {
+  fbq?: (...args: unknown[]) => void
+}
+
+function trackPurchaseFromUrl() {
+  const params = new URLSearchParams(window.location.search)
+  const order = params.get('pedido')?.trim()
+  const rawValue = Number(params.get('valor'))
+  const value = Number.isFinite(rawValue) ? Math.round((rawValue + Number.EPSILON) * 100) / 100 : 0
+
+  if (!order || value <= 0) return
+
+  const storageKey = `meta-pixel-purchase:${order}`
+  if (window.sessionStorage.getItem(storageKey)) return
+
+  const fbq = (window as MetaPixelWindow).fbq
+  if (!fbq) return
+
+  fbq('track', 'Purchase', { value, currency: 'BRL' })
+  window.sessionStorage.setItem(storageKey, '1')
+}
 
 const logoImage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2022_56_29-RvUWngotSiiyqW9IjYE2RL60GGAyvj.png'
 
 export default function ThankYouPage() {
+  useEffect(() => {
+    trackPurchaseFromUrl()
+  }, [])
+
   return (
     <main className="thank-you-page">
       <header className="donation-header">
