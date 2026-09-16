@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     if (!token) return NextResponse.json({ error: 'Gateway PIX indisponível.' }, { status: 503 })
     const externalId = randomUUID()
     await db.insert(orders).values({ id: randomUUID(), externalId, amount: amountInCents, status: 'PENDING', createdAt: new Date(), updatedAt: new Date() })
-    const response = await fetch(ONIPAY_URL, { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'Idempotency-Key': externalId }, body: JSON.stringify({ amount: amountInCents, callbackUrl: ONIPAY_CALLBACK_URL, externalId }), cache: 'no-store' })
+    const response = await fetch(ONIPAY_URL, { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', 'Idempotency-Key': externalId }, body: JSON.stringify({ amount: amountInCents / 100, callbackUrl: ONIPAY_CALLBACK_URL, externalId }), cache: 'no-store' })
     const data = await response.json().catch(() => null)
     if (!response.ok) return NextResponse.json({ error: data?.error?.message || 'A OniPay não conseguiu gerar o PIX.' }, { status: 502 })
     const pix = data?.data?.pix || data?.pix || data?.data
