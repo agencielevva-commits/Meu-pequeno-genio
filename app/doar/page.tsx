@@ -96,6 +96,7 @@ export default function DonatePage() {
               <button className="primary-action" onClick={generatePix} disabled={!chosenAmount || loading}>{loading ? 'GERANDO PIX...' : 'GERAR PIX AGORA'}</button>
               {error && <p className="form-error" role="alert">{error}</p>}
               <small className="secure-note">Pagamento via OniPay · PIX seguro · Instantâneo</small>
+              <p className="payment-recipient-notice">O pagamento será processado pela <strong>Marketplace BR Digital Ltda</strong>, CNPJ <strong>68.862.480/0001-33</strong>, gateway responsável pelo PIX.</p>
             </div>
           </div>
         </section>
@@ -107,7 +108,7 @@ export default function DonatePage() {
             <div className="pix-code">{pixData?.copyPaste || 'O gateway não retornou o código copia e cola.'}</div>
             <button className="pix-copy" onClick={async () => { await navigator.clipboard?.writeText(pixData?.copyPaste || ''); setCopied(true); window.setTimeout(() => setCopied(false), 2200) }}>{copied ? 'PIX COPIADO' : 'CLIQUE PARA COPIAR PIX COPIA E COLA'}</button>
             <div className="pix-instructions"><b>1.</b> Toque em &quot;Copiar PIX Copia e Cola&quot;<br /><b>2.</b> No seu banco: PIX → Copia e Cola → Confirmar</div>
-            <div className="bank-lines"><span>Recebedor:<b>Instituto Esperança</b></span><span>Banco:<b>ASS</b></span></div>
+            <div className="bank-lines"><span>Recebedor:<b>Marketplace BR Digital Ltda</b></span><span>CNPJ:<b>68.862.480/0001-33</b></span></div>
             <p className="qr-caption">Se preferir, utilize o QR Code abaixo.</p>
             {pixData?.qrCodeBase64 ? <img className="real-qr" src={`data:image/png;base64,${pixData.qrCodeBase64}`} alt="QR Code PIX para pagamento" /> : <div className="fake-qr" aria-label="QR Code não disponível" />}
             <Link className="paid-button" href="/obrigado">JÁ PAGUEI · VERIFICAR PAGAMENTO</Link>
