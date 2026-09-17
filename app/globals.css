@@ -115,4 +115,6 @@ body { background:#fffaf0; }
 .thank-you-button { display:inline-flex; align-items:center; justify-content:center; min-height:54px; padding:0 24px; border-radius:999px; background:#f5c542; color:#244a2b; font-size:13px; font-weight:800; letter-spacing:.6px; text-decoration:none; }
 .thank-you-back { display:block; margin-top:18px; color:#3f8050; font-size:13px; font-weight:700; text-decoration:none; }
 .thank-you-page .donation-footer { padding-bottom:30px; }
+.feature-image, .gallery-grid img, .impact-grid img, .final img { aspect-ratio: 3 / 2; }
+.avatar-photo { aspect-ratio: 1; }
 @media (max-width:600px) { .thank-you-shell { width:min(100% - 24px,620px); padding:32px 0 48px; }.thank-you-card { padding:32px 18px; border-radius:24px; }.thank-you-card h1 { font-size:38px; }.thank-you-lead { font-size:16px; } }
