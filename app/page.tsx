@@ -1,7 +1,81 @@
 'use client'
-import { useState } from 'react'
-const valores=[30,70,150,300,500]
-const faqs=[['Quem organiza a campanha?','O Instituto Esperança Comunitária é fictício nesta demonstração.'],['Para onde vai a contribuição?','Uma versão real deve publicar orçamento, documentos e prestação de contas.'],['O pagamento é seguro?','Nenhum pagamento real é processado neste protótipo.'],['Existe doação recorrente?','Esta função está planejada e não está ativa.']]
-function Demo({children='DEMO'}:{children?:string}){return <span className="demo-badge">{children}</span>}
-export default function Page(){const[open,setOpen]=useState(false);return <main className="demo-site"><div className="demo-notice"><Demo/> Campanha demonstrativa — informações fictícias para protótipo.</div><header className="demo-header"><a className="demo-brand" href="#inicio"><b>+</b><strong>Esperança<br/>do Bem</strong></a><nav aria-label="Navegação"><a href="#inicio">Início</a><a href="#como-funciona">Como funciona</a><a href="#transparencia">Transparência</a><a href="#depoimentos">Depoimentos demonstrativos</a><button onClick={()=>setOpen(true)}>Quero contribuir</button></nav></header><section className="demo-hero" id="inicio"><div><Demo>PROTÓTIPO</Demo><h1>Uma refeição pode começar com um gesto.</h1><p>Conheça uma campanha demonstrativa de apoio à alimentação de famílias em situação de vulnerabilidade.</p><button className="demo-button primary" onClick={()=>setOpen(true)}>Quero contribuir</button><a className="demo-button secondary" href="#como-funciona">Ver como funciona</a><div className="trust-row"><span>Projeto demonstrativo</span><span>Transparência planejada</span><span>Pagamento ilustrativo</span></div></div><img src="/demo-hero.png" alt="Família compartilhando uma refeição, ilustração demonstrativa"/></section><section className="section video-section" id="como-funciona"><Demo>VÍDEO DEMONSTRATIVO</Demo><h2>Como uma campanha transparente pode transformar doações em impacto</h2><div className="video-card"><button onClick={()=>setOpen(true)} aria-label="Iniciar vídeo demonstrativo"><span>▶</span><strong>Vídeo demonstrativo</strong><small>Substituir por gravação real da equipe · sem autoplay</small></button></div><p>Vídeo demonstrativo. Substituir por gravação real antes da publicação.</p></section><section className="section two-col"><div><Demo>DADOS DEMONSTRATIVOS</Demo><h2>Quem está por trás</h2><h3>Instituto Esperança Comunitária</h3><p>Organização fictícia criada para fins de demonstração.</p><p>Antes da publicação, todos os dados deverão ser substituídos por informações reais e verificáveis.</p></div><aside><b>Localização fictícia</b><p>Rua das Acácias, 120<br/>Centro, Curitiba — PR</p><b>E-mail demonstrativo</b><p>contato@exemplo-esperancadobem.org</p><b>WhatsApp demonstrativo</b><p>(41) 99999-0000</p></aside></section><section className="section pale"><Demo>EXEMPLOS</Demo><h2>Como a doação seria utilizada</h2><p>Valores meramente ilustrativos. Substituir por orçamento, notas fiscais e custos reais.</p><div className="cards">{valores.map(v=><article key={v}><strong>R$ {v},00</strong><p>Apoio demonstrativo para alimentação, logística ou ação comunitária.</p></article>)}</div></section><section className="section" id="transparencia"><Demo>SUBSTITUIR ANTES DA PUBLICAÇÃO</Demo><h2>Transparência planejada</h2><p>Em uma campanha real, esta área deve conter documentos verificáveis, datas, valores e resultados.</p><div className="cards">{['Relatórios financeiros','Notas fiscais','Fotos autorizadas','Pessoas atendidas','Atualizações mensais','Prestação de contas'].map(x=><article key={x}><h3>{x}</h3><button disabled>Documento demonstrativo</button></article>)}</div><div className="goal"><b>Meta demonstrativa: R$ 50.000,00</b><b>Arrecadado demonstrativo: R$ 18.750,00</b><div><span/></div><small>37,5% · Valores fictícios para protótipo.</small></div></section><section className="section pale" id="depoimentos"><Demo>DEPOIMENTOS DEMONSTRATIVOS</Demo><h2>Clareza também cria confiança</h2><div className="cards">{['Gostei da clareza da campanha.','A prestação de contas ajuda a entender o destino.','A comunicação transmite responsabilidade.'].map((x,i)=><article key={x}><p>“{x}”</p><b>Exemplo de {['doadora','colaborador','apoiadora'][i]}</b><small>Cidade demonstrativa</small><em>Substituir por relato real autorizado.</em></article>)}</div></section><section className="section faq"><Demo>EXEMPLO</Demo><h2>Perguntas frequentes</h2>{faqs.map(([q,a])=><details key={q}><summary>{q}</summary><p>{a}</p></details>)}</section><section className="section donation"><Demo>FLUXO DEMONSTRATIVO</Demo><h2>Escolha uma contribuição possível</h2><p>Nenhum pagamento real será processado nesta versão.</p>{valores.map(v=><button key={v} onClick={()=>setOpen(true)}>R$ {v},00</button>)}<br/><button className="demo-button primary" onClick={()=>setOpen(true)}>Gerar Pix demonstrativo</button></section><section className="section security"><h2>Segurança e pagamento</h2><p>Em uma versão real, informe recebedor, CNPJ, intermediador financeiro, privacidade e suporte.</p><b>CNPJ DEMONSTRATIVO: 00.000.000/DEMO-00</b> <Demo>FICTÍCIO</Demo></section><footer className="demo-footer"><a className="demo-brand" href="#inicio"><b>+</b><strong>Esperança<br/>do Bem</strong></a><p>Esta página é um protótipo demonstrativo e contém informações fictícias.</p><p>contato@exemplo-esperancadobem.org · (41) 99999-0000</p><details><summary>Substituir antes da publicação</summary><p>Nome legal, CNPJ, endereço, contatos, fotos, vídeo, depoimentos, valores, meta, relatórios, recebedor Pix, política e termos.</p></details></footer>{open&&<div className="modal" onClick={()=>setOpen(false)}><div role="dialog" aria-modal="true" onClick={e=>e.stopPropagation()}><Demo/><h2>Fluxo demonstrativo</h2><p>Este é um fluxo demonstrativo. Nenhum pagamento real será processado.</p><button className="demo-button primary" onClick={()=>setOpen(false)}>Entendi</button></div></div>}</main>}
-/* SUBSTITUIR ANTES DA PUBLICAÇÃO: dados, imagens, vídeo, relatos e documentos. */
+
+const images = {
+  child: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20tela%202026-09-14%20214854-ZkCilOKv0aDoNBjlbZO9y8lAKJUq40.png',
+  prayer: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aYMmSciIepgEEQPHJbqWg6VxStFsmF.png',
+  hunger: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-R46rJCnr3fDNSLnxCHEQPPPjOukAuo.png',
+  pix: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-xKEiwTqbBGpmSTkS8cczf15OanH0xt.png',
+  video: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Captura%20de%20tela%202026-09-14%20214824-stGGvZi2GrcWD02nK6qP6BgS6BynQ3.png',
+  banner: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%282%29-nnNryWlguuWMxDnT9LjoiCZ9ym3t5M.jpeg',
+  childClose: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image560x340cropped-0qLBvivbxsW8PhsKz3PMFvAKzIYR85.jpg',
+  historic: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/30set2013---o-fotografo-kevin-carter-recebeu-o-premio-pullitzer-com-a-foto-que-sensibilizou-o-mundo-com-o-tema-da-fome-na-africa-na-foto-um-urubu-observa-uma-crianca-desnutrida-no-sudao-1623410034962_v2_4x3-PKFl42aUHpMYozEYDfqJ36nQdqBY65.jpg',
+  community: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images%20%281%29-sEuMz1UvuKyq0VPmjI25WDsbnRbC2w.jpeg',
+}
+
+const testimonials = [
+  ['Luciana Mello', 'Curitiba', 'Doei R$100,00 e fico grata por fazer parte dessa missão, alimentando quem mais precisa... Amém!', 'https://randomuser.me/api/portraits/women/44.jpg'],
+  ['Márcia Santos', 'Recife', 'Sempre que posso ajudo essas crianças, ninguém merece passar fome. Que Deus abençoe o Esperança do Bem por ajudar!', 'https://randomuser.me/api/portraits/women/32.jpg'],
+  ['João Paulo', 'São Paulo', 'Ajudei hoje, fico muito feliz com pessoas que se importam com o próximo e seguem o propósito de Deus aqui na Terra.', 'https://randomuser.me/api/portraits/men/32.jpg'],
+  ['Luciana Mello', 'Curitiba', 'Doei R$100,00 e fico grata por fazer parte dessa missão, alimentando quem mais precisa... Amém!', 'https://randomuser.me/api/portraits/women/68.jpg'],
+]
+
+function CTA({ label = 'FAZER PARTE DESSE PROPÓSITO' }: { label?: string }) {
+  return <a className="cta" href="/doar">{label} <span aria-hidden="true">♥</span></a>
+}
+
+export default function Page() {
+  return (
+    <main>
+      <header className="topbar site-header">
+        <a className="brand-mark" aria-label="Esperança do Bem" href="#inicio"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%2014%20de%20set.%20de%202026%2C%2022_56_29-RvUWngotSiiyqW9IjYE2RL60GGAyvj.png" alt="Logo Esperança do Bem" /></a>
+        <nav className="main-nav" aria-label="Navegação principal"><a href="#impacto">Nosso impacto</a><a href="#depoimentos">Depoimentos</a><a className="nav-donate" href="/doar">Doar agora</a></nav>
+      </header>
+
+      <section className="campaign-banner" id="inicio">
+        <video className="campaign-banner-video" autoPlay muted loop playsInline poster={images.banner} aria-label="Vídeo sobre a alimentação de crianças em Moçambique">
+          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Alimentando%20Crian%C3%A7as%20em%20Mo%C3%A7ambique_%20Contribua%20para%20esta%20Obra%20Evangel%C3%ADstica%21%20_canal%20_boa%20_palavra-FUKOG676gp2gtuePYpafIjqllMEb2V.mp4" type="video/mp4" />
+        </video>
+        <div className="campaign-banner-overlay" />
+        <div className="campaign-banner-content">
+          <span className="banner-kicker">UMA VIDA PODE COMEÇAR COM VOCÊ</span>
+          <h1>Quando a fome dói, a esperança precisa chegar.</h1>
+          <p>Seu gesto transforma doação em alimento, cuidado e dignidade.</p>
+          <div className="hero-cta-row"><CTA label="AJUDE AGORA" /><a className="hero-ghost-cta" href="#impacto">CONHEÇA O IMPACTO <span aria-hidden="true">↓</span></a></div>
+        </div>
+      </section>
+
+      <section className="hero section narrow">
+        <h1>Essa é uma obra feita por muitas mãos</h1>
+        <p className="subtitle">Cada doação é um ato de fé.</p>
+        <div className="progress-meta"><span>Já conseguimos arrecadar<br /><b>R$ 143.450,00</b></span><span className="live">AO VIVO ▷</span></div>
+        <div className="progress"><span /></div>
+        <div className="progress-label"><b>65,20%</b><span>Faltam R$76.550,00 para alcançarmos a meta</span></div>
+        <p className="fine">*Os valores são atualizados conforme as doações entram.</p>
+        <div className="donors"><span>Dan Doou R$25,00.</span><span>Ana Doou R$65,00.</span></div>
+        <blockquote>&quot;Cada um contribua segundo propôs no coração.&quot;<small>▧ 2 Coríntios 9:7</small></blockquote>
+        <CTA />
+      </section>
+
+      <section className="story section paper">
+        <img className="feature-image" src={images.child} alt="Criança sorrindo com um prato de comida" />
+        <div className="story-copy"><p>Se você chegou até aqui, não foi por acaso,<br /><b>Deus poderia tocar muitos corações, mas tocou o seu.</b></p><p>Essas crianças estão vivas hoje esperando que alguém <b>diga sim.</b></p></div>
+        <CTA />
+        <img className="feature-image" src={images.hunger} alt="Crianças em situação de vulnerabilidade" />
+        <div className="story-copy"><p><b>Crianças em Moçambique dormem com fome,</b> muitas são órfãs.</p><p>Falta comida, falta água, falta tudo.<br />Enquanto alguns têm mesa farta, <b>elas não têm o básico para viver.</b></p></div>
+        <CTA label="NÃO QUERO VIRAR AS COSTAS" />
+      </section>
+
+      <section className="impact-section section" id="impacto">
+        <div className="section-heading"><span className="section-kicker">POR QUE SUA AJUDA IMPORTA</span><h2>Não é apenas uma doação.<br /><em>É uma resposta.</em></h2><p>Enquanto você lê, uma criança espera por uma refeição, água limpa e alguém que diga: eu me importo.</p></div>
+        <div className="impact-grid"><figure><img src={images.childClose} alt="Criança recebendo avaliação e cuidado" /><figcaption>Cuidado que devolve força para continuar.</figcaption></figure><figure><img src={images.community} alt="Crianças reunidas em uma comunidade" /><figcaption>Esperança que cresce quando chega em muitas mãos.</figcaption></figure></div>
+      </section>
+
+      <section className="gallery section paper"><div className="gallery-grid"><img src={images.prayer} alt="Crianças reunidas em oração" /><img src={images.historic} alt="Criança em situação de fome observada por um abutre" /><img src={images.community} alt="Crianças reunidas em comunidade" /></div><p className="quote">&quot;Quem recebe uma destas crianças em meu nome, a mim me recebe.&quot;<small>▧ Mateus 18:5</small></p></section>
+
+      <section className="testimonials section" id="depoimentos"><span className="section-kicker">VOZES DA NOSSA COMUNIDADE</span><h2>Quem já fez parte, compartilha</h2><p className="testimonials-intro">Cada gesto cria uma corrente de cuidado que chega muito mais longe.</p><div className="testimonial-row">{testimonials.map(([name, city, text, avatar], index) => <article className="testimonial" key={`${name}-${index}`}><img className="avatar-photo" src={avatar} alt={`Avatar de ${name}`} /><div><h3>{name}</h3><small>{city} · Doador(a)</small></div><span className="verified">✓ verificado</span><p>&quot;{text}&quot;</p></article>)}</div></section>
+
+      <section className="final section"><h2>Não vire as costas para o propósito de Deus</h2><p className="subtitle">Tive fome, e vocês me deram de comer.<br />Hoje, você pode ser a resposta dessa palavra.</p><img src={images.video} alt="Vídeo sobre o projeto Esperança do Bem" /><CTA label="QUERO AJUDAR AGORA" /><p><b>É rápido, seguro e qualquer valor ajuda.</b></p></section>
+      <footer>Esperança do Bem · Uma mão estendida transforma uma vida.</footer>
+    </main>
+  )
+}

@@ -6,9 +6,7 @@ const ONIPAY_URL = 'https://onipaybot.com.br/api/v1/deposits/'
 
 const ONIPAY_CALLBACK_URL = 'https://esperancadobem.vercel.app/api/webhooks/onipay'
 
-export async function POST(_request: Request) {
-  return NextResponse.json({ error: 'Este é um protótipo demonstrativo. Nenhum pagamento real será processado.' }, { status: 410 })
-  /*
+export async function POST(request: Request) {
   try {
     const body = await request.json()
     const amount = Number(body.amount)
@@ -29,6 +27,4 @@ export async function POST(_request: Request) {
     console.error('[v0] checkout error', error)
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Não foi possível gerar o PIX.' }, { status: 500 })
   }
-  }
-  */
 }

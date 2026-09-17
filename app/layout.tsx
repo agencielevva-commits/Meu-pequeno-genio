@@ -4,12 +4,8 @@ import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Esperança do Bem | Campanha demonstrativa de alimentação',
-  description: 'Conheça um protótipo de campanha transparente para apoiar ações de alimentação e dignidade.',
-  openGraph: {
-    title: 'Uma refeição pode começar com um gesto',
-    description: 'Veja como uma campanha de doação pode explicar seu impacto com clareza e transparência.',
-  },
+  title: 'Esperança do Bem | Cada doação é um ato de fé',
+  description: 'Ajude o Projeto Esperança do Bem a levar alimento e esperança para crianças em situação de vulnerabilidade.',
   generator: 'v0.app',
 }
 
